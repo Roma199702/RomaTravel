@@ -5,6 +5,10 @@ from . import views
 
 urlpatterns = [
 
+    # ==================================================
+    # PÁGINAS PRINCIPALES
+    # ==================================================
+
     path(
         '',
         views.inicio,
@@ -17,11 +21,21 @@ urlpatterns = [
         name='sobre_nosotros'
     ),
 
+
+    # ==================================================
+    # VIAJES DISPONIBLES
+    # ==================================================
+
     path(
         'viajes/',
         views.viajes_disponibles,
         name='viajes_disponibles'
     ),
+
+
+    # ==================================================
+    # RESERVAS
+    # ==================================================
 
     path(
         'viajes/reservar/<int:id>/',
@@ -34,6 +48,23 @@ urlpatterns = [
         views.lista_reservas,
         name='lista_reservas'
     ),
+
+    path(
+        'reservas/editar/<int:id>/',
+        views.editar_reserva,
+        name='editar_reserva'
+    ),
+
+    path(
+        'reservas/eliminar/<int:id>/',
+        views.eliminar_reserva,
+        name='eliminar_reserva'
+    ),
+
+
+    # ==================================================
+    # CRUD DE VIAJES
+    # ==================================================
 
     path(
         'administrar/',

@@ -7,12 +7,17 @@ from django.shortcuts import (
 from django.db import transaction
 
 from .models import Viaje, Reserva
-from .forms import ViajeForm, ReservaForm
+
+from .forms import (
+    ViajeForm,
+    ReservaForm,
+    EditarReservaForm
+)
 
 
-# =========================
-# INICIO
-# =========================
+# ==================================================
+# PÁGINA PRINCIPAL
+# ==================================================
 
 def inicio(request):
 
@@ -22,9 +27,9 @@ def inicio(request):
     )
 
 
-# =========================
+# ==================================================
 # SOBRE NOSOTROS
-# =========================
+# ==================================================
 
 def sobre_nosotros(request):
 
@@ -34,9 +39,9 @@ def sobre_nosotros(request):
     )
 
 
-# =========================
+# ==================================================
 # VIAJES DISPONIBLES
-# =========================
+# ==================================================
 
 def viajes_disponibles(request):
 
@@ -55,9 +60,9 @@ def viajes_disponibles(request):
     )
 
 
-# =========================
-# RESERVAR
-# =========================
+# ==================================================
+# CREAR RESERVA
+# ==================================================
 
 def reservar_viaje(request, id):
 
@@ -87,9 +92,12 @@ def reservar_viaje(request, id):
 
             else:
 
-                total = viaje.precio * cantidad
-
                 with transaction.atomic():
+
+                    total = (
+                        viaje.precio
+                        * cantidad
+                    )
 
                     reserva = formulario.save(
                         commit=False
@@ -101,7 +109,10 @@ def reservar_viaje(request, id):
 
                     reserva.save()
 
-                    viaje.cupos -= cantidad
+                    viaje.cupos = (
+                        viaje.cupos
+                        - cantidad
+                    )
 
                     viaje.save()
 
@@ -127,9 +138,9 @@ def reservar_viaje(request, id):
     )
 
 
-# =========================
-# LISTA DE RESERVAS
-# =========================
+# ==================================================
+# LISTAR RESERVAS
+# ==================================================
 
 def lista_reservas(request):
 
@@ -148,9 +159,155 @@ def lista_reservas(request):
     )
 
 
-# =========================
-# ADMINISTRAR VIAJES
-# =========================
+# ==================================================
+# EDITAR RESERVA
+# ==================================================
+
+def editar_reserva(request, id):
+
+    reserva = get_object_or_404(
+        Reserva,
+        id=id
+    )
+
+    viaje = reserva.viaje
+
+    cantidad_anterior = (
+        reserva.cantidad_personas
+    )
+
+    if request.method == 'POST':
+
+        formulario = EditarReservaForm(
+            request.POST,
+            instance=reserva
+        )
+
+        if formulario.is_valid():
+
+            nueva_cantidad = (
+                formulario.cleaned_data[
+                    'cantidad_personas'
+                ]
+            )
+
+            # Cupos que realmente están disponibles,
+            # considerando los que ya pertenecían
+            # a esta reserva.
+
+            cupos_disponibles = (
+                viaje.cupos
+                + cantidad_anterior
+            )
+
+            if nueva_cantidad > cupos_disponibles:
+
+                formulario.add_error(
+                    'cantidad_personas',
+                    'No existen suficientes cupos disponibles.'
+                )
+
+            else:
+
+                with transaction.atomic():
+
+                    # Primero devolvemos los cupos
+                    # de la reserva anterior.
+
+                    viaje.cupos = (
+                        viaje.cupos
+                        + cantidad_anterior
+                    )
+
+                    # Después descontamos
+                    # la nueva cantidad.
+
+                    viaje.cupos = (
+                        viaje.cupos
+                        - nueva_cantidad
+                    )
+
+                    viaje.save()
+
+                    reserva_editada = (
+                        formulario.save(
+                            commit=False
+                        )
+                    )
+
+                    reserva_editada.precio_total = (
+                        viaje.precio
+                        * nueva_cantidad
+                    )
+
+                    reserva_editada.save()
+
+                return redirect(
+                    'lista_reservas'
+                )
+
+    else:
+
+        formulario = EditarReservaForm(
+            instance=reserva
+        )
+
+    return render(
+        request,
+        'agencia/editar_reserva.html',
+        {
+            'formulario': formulario,
+            'reserva': reserva
+        }
+    )
+
+
+# ==================================================
+# ELIMINAR RESERVA
+# ==================================================
+
+def eliminar_reserva(request, id):
+
+    reserva = get_object_or_404(
+        Reserva,
+        id=id
+    )
+
+    if request.method == 'POST':
+
+        with transaction.atomic():
+
+            viaje = reserva.viaje
+
+            # Al eliminar la reserva,
+            # devolvemos sus cupos.
+
+            viaje.cupos = (
+                viaje.cupos
+                + reserva.cantidad_personas
+            )
+
+            viaje.save()
+
+            reserva.delete()
+
+        return redirect(
+            'lista_reservas'
+        )
+
+    return render(
+        request,
+        'agencia/eliminar_reserva.html',
+        {
+            'reserva': reserva
+        }
+    )
+
+
+# ==================================================
+# CRUD PRINCIPAL: VIAJE
+# CONSULTAR
+# ==================================================
 
 def administrar_viajes(request):
 
@@ -167,9 +324,10 @@ def administrar_viajes(request):
     )
 
 
-# =========================
-# CREAR VIAJE
-# =========================
+# ==================================================
+# CRUD PRINCIPAL: VIAJE
+# CREAR
+# ==================================================
 
 def crear_viaje(request):
 
@@ -200,9 +358,10 @@ def crear_viaje(request):
     )
 
 
-# =========================
-# EDITAR VIAJE
-# =========================
+# ==================================================
+# CRUD PRINCIPAL: VIAJE
+# EDITAR
+# ==================================================
 
 def editar_viaje(request, id):
 
@@ -242,9 +401,10 @@ def editar_viaje(request, id):
     )
 
 
-# =========================
-# ELIMINAR VIAJE
-# =========================
+# ==================================================
+# CRUD PRINCIPAL: VIAJE
+# ELIMINAR
+# ==================================================
 
 def eliminar_viaje(request, id):
 

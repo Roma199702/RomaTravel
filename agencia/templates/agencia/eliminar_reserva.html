@@ -1,0 +1,155 @@
+{% extends 'agencia/base.html' %}
+
+
+{% block title %}
+
+Eliminar reserva | Roma Travel
+
+{% endblock %}
+
+
+{% block contenido %}
+
+
+<div class="container my-5">
+
+
+    <div class="row justify-content-center">
+
+
+        <div class="col-lg-6">
+
+
+            <div class="card shadow">
+
+
+                <div class="card-body p-5 text-center">
+
+
+                    <div
+                        style="font-size: 70px;"
+                    >
+
+                        🗑️
+
+                    </div>
+
+
+                    <h1 class="text-danger fw-bold">
+
+                        Eliminar reserva
+
+                    </h1>
+
+
+                    <p class="fs-5 mt-4">
+
+                        ¿Estás seguro de que deseas
+                        eliminar esta reserva?
+
+                    </p>
+
+
+                    <div class="alert alert-warning text-start">
+
+
+                        <p>
+
+                            <strong>
+                                Nombre:
+                            </strong>
+
+                            {{ reserva.nombre }}
+
+                        </p>
+
+
+                        <p>
+
+                            <strong>
+                                Destino:
+                            </strong>
+
+                            {{ reserva.viaje.destino }}
+
+                        </p>
+
+
+                        <p>
+
+                            <strong>
+                                Cantidad de personas:
+                            </strong>
+
+                            {{ reserva.cantidad_personas }}
+
+                        </p>
+
+
+                        <p class="mb-0">
+
+                            <strong>
+                                Total:
+                            </strong>
+
+                            ${{ reserva.precio_total }}
+
+                        </p>
+
+
+                    </div>
+
+
+                    <p class="text-muted">
+
+                        Los cupos correspondientes
+                        volverán a estar disponibles.
+
+                    </p>
+
+
+                    <form method="POST">
+
+
+                        {% csrf_token %}
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-danger btn-lg"
+                        >
+
+                            🗑️ Sí, eliminar reserva
+
+                        </button>
+
+
+                        <a
+                            href="{% url 'lista_reservas' %}"
+                            class="btn btn-outline-secondary btn-lg"
+                        >
+
+                            Cancelar
+
+                        </a>
+
+
+                    </form>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

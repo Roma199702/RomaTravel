@@ -2,7 +2,9 @@
 
 
 {% block title %}
+
 Eliminar viaje | Roma Travel
+
 {% endblock %}
 
 
@@ -24,23 +26,63 @@ Eliminar viaje | Roma Travel
                 <div class="card-body p-5 text-center">
 
 
-                    <h1 class="text-danger">
-                        🗑️ Eliminar viaje
+                    <div
+                        style="font-size: 65px;"
+                    >
+
+                        🗑️
+
+                    </div>
+
+
+                    <h1 class="text-danger fw-bold">
+
+                        Eliminar viaje
+
                     </h1>
 
 
                     <p class="fs-5 mt-4">
 
-                        ¿Estás seguro de eliminar el viaje a
+                        ¿Estás seguro de que deseas
+                        eliminar el viaje a
 
                         <strong>
+
                             {{ viaje.destino }}
-                        </strong>?
+
+                        </strong>
+
+                        ?
 
                     </p>
 
 
+                    <div class="alert alert-warning">
+
+
+                        <strong>
+                            País:
+                        </strong>
+
+                        {{ viaje.pais }}
+
+
+                        <br>
+
+
+                        <strong>
+                            Fecha de salida:
+                        </strong>
+
+                        {{ viaje.fecha_salida|date:"d/m/Y" }}
+
+
+                    </div>
+
+
                     <form method="POST">
+
 
                         {% csrf_token %}
 
@@ -49,7 +91,9 @@ Eliminar viaje | Roma Travel
                             type="submit"
                             class="btn btn-danger btn-lg"
                         >
-                            Sí, eliminar
+
+                            🗑️ Sí, eliminar
+
                         </button>
 
 
@@ -57,7 +101,9 @@ Eliminar viaje | Roma Travel
                             href="{% url 'administrar_viajes' %}"
                             class="btn btn-outline-secondary btn-lg"
                         >
+
                             Cancelar
+
                         </a>
 
 

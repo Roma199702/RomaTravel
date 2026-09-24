@@ -2,7 +2,9 @@
 
 
 {% block title %}
+
 Viajes disponibles | Roma Travel
+
 {% endblock %}
 
 
@@ -14,13 +16,21 @@ Viajes disponibles | Roma Travel
 
     <div class="text-center mb-5">
 
+
         <h1 class="fw-bold">
+
             ✈️ Viajes disponibles
+
         </h1>
 
+
         <p class="fs-5 text-muted">
-            Selecciona el viaje que prefieras.
+
+            Revisa nuestras opciones y selecciona
+            tu próximo destino.
+
         </p>
+
 
     </div>
 
@@ -33,18 +43,24 @@ Viajes disponibles | Roma Travel
 
         <div class="col-lg-4 col-md-6">
 
+
             <div class="card shadow h-100">
+
 
                 <div class="card-body p-4">
 
 
                     <h2 class="fw-bold">
+
                         ✈️ {{ viaje.destino }}
+
                     </h2>
 
 
                     <h5 class="text-muted">
+
                         🌎 {{ viaje.pais }}
+
                     </h5>
 
 
@@ -52,31 +68,53 @@ Viajes disponibles | Roma Travel
 
 
                     <p>
-                        <strong>🛫 Salida:</strong>
+
+                        <strong>
+                            🛫 Salida:
+                        </strong>
+
                         {{ viaje.fecha_salida|date:"d/m/Y" }}
+
                     </p>
 
 
                     <p>
-                        <strong>🛬 Regreso:</strong>
+
+                        <strong>
+                            🛬 Regreso:
+                        </strong>
+
                         {{ viaje.fecha_regreso|date:"d/m/Y" }}
+
                     </p>
 
 
                     <p>
-                        <strong>🧳 Tipo:</strong>
+
+                        <strong>
+                            🧳 Tipo:
+                        </strong>
+
                         {{ viaje.tipo_viaje }}
+
                     </p>
 
 
                     <p>
-                        <strong>👥 Cupos disponibles:</strong>
+
+                        <strong>
+                            👥 Cupos:
+                        </strong>
+
                         {{ viaje.cupos }}
+
                     </p>
 
 
                     <p class="text-muted">
+
                         {{ viaje.descripcion }}
+
                     </p>
 
 
@@ -85,12 +123,18 @@ Viajes disponibles | Roma Travel
 
                     <div class="text-center">
 
+
                         <p class="mb-1">
+
                             Precio por persona
+
                         </p>
 
+
                         <h2 class="precio">
+
                             ${{ viaje.precio }}
+
                         </h2>
 
 
@@ -98,15 +142,20 @@ Viajes disponibles | Roma Travel
                             href="{% url 'reservar_viaje' viaje.id %}"
                             class="btn btn-success btn-lg w-100 mt-3"
                         >
-                            Seleccionar viaje
+
+                            🧳 Seleccionar viaje
+
                         </a>
+
 
                     </div>
 
 
                 </div>
 
+
             </div>
+
 
         </div>
 
@@ -116,20 +165,29 @@ Viajes disponibles | Roma Travel
 
         <div class="col-12">
 
-            <div class="alert alert-info text-center p-5">
+
+            <div
+                class="alert alert-info text-center p-5"
+            >
+
 
                 <h2>
+
                     ✈️ No hay viajes disponibles
+
                 </h2>
+
 
                 <p class="mb-0">
 
-                    En este momento Roma Travel
-                    no tiene viajes con cupos disponibles.
+                    En este momento no existen
+                    viajes con cupos disponibles.
 
                 </p>
 
+
             </div>
+
 
         </div>
 

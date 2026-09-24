@@ -2,7 +2,9 @@
 
 
 {% block title %}
-Agregar viaje | Roma Travel
+
+Crear viaje | Roma Travel
+
 {% endblock %}
 
 
@@ -24,37 +26,86 @@ Agregar viaje | Roma Travel
                 <div class="card-body p-5">
 
 
-                    <h1 class="fw-bold">
-                        ✈️ Agregar viaje
+                    <h1 class="fw-bold mb-2">
+
+                        ➕ Crear nuevo viaje
+
                     </h1>
 
 
-                    <p class="text-muted">
-                        Registra una nueva opción de viaje para Roma Travel.
+                    <p class="text-muted mb-4">
+
+                        Complete los datos para registrar
+                        un nuevo viaje en Roma Travel.
+
                     </p>
 
 
                     <form method="POST">
 
+
                         {% csrf_token %}
 
-                        {{ formulario.as_p }}
+
+                        {% for campo in formulario %}
 
 
-                        <button
-                            type="submit"
-                            class="btn btn-primary btn-lg"
-                        >
-                            Guardar viaje
-                        </button>
+                        <div class="mb-3">
 
 
-                        <a
-                            href="{% url 'administrar_viajes' %}"
-                            class="btn btn-outline-secondary btn-lg"
-                        >
-                            Cancelar
-                        </a>
+                            <label class="form-label fw-bold">
+
+                                {{ campo.label }}
+
+                            </label>
+
+
+                            {{ campo }}
+
+
+                            {% for error in campo.errors %}
+
+
+                            <div class="text-danger mt-1">
+
+                                {{ error }}
+
+                            </div>
+
+
+                            {% endfor %}
+
+
+                        </div>
+
+
+                        {% endfor %}
+
+
+                        <div class="mt-4">
+
+
+                            <button
+                                type="submit"
+                                class="btn btn-success btn-lg"
+                            >
+
+                                💾 Guardar viaje
+
+                            </button>
+
+
+                            <a
+                                href="{% url 'administrar_viajes' %}"
+                                class="btn btn-outline-secondary btn-lg"
+                            >
+
+                                Cancelar
+
+                            </a>
+
+
+                        </div>
 
 
                     </form>
@@ -75,4 +126,4 @@ Agregar viaje | Roma Travel
 </div>
 
 
-{% endblock %}{% endblock %}
+{% endblock %}

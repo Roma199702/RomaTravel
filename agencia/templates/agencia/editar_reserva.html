@@ -3,7 +3,7 @@
 
 {% block title %}
 
-Reservar viaje | Roma Travel
+Editar reserva | Roma Travel
 
 {% endblock %}
 
@@ -26,51 +26,44 @@ Reservar viaje | Roma Travel
                 <div class="card-body p-5">
 
 
-                    <h2 class="fw-bold text-center mb-4">
+                    <h1 class="fw-bold">
 
-                        🧳 Reservar viaje
+                        ✏️ Editar reserva
 
-                    </h2>
-
-
-                    <div class="alert alert-primary">
+                    </h1>
 
 
-                        <h3>
+                    <p class="text-muted">
 
-                            ✈️ {{ viaje.destino }}
+                        Modifica los datos de tu reserva.
 
-                        </h3>
-
-
-                        <p>
-
-                            🌎 {{ viaje.pais }}
-
-                        </p>
+                    </p>
 
 
-                        <hr>
+                    <div class="alert alert-primary mt-4">
 
 
-                        <p>
+                        <h4>
 
-                            <strong>
-                                Salida:
-                            </strong>
+                            ✈️ {{ reserva.viaje.destino }}
 
-                            {{ viaje.fecha_salida|date:"d/m/Y" }}
+                        </h4>
+
+
+                        <p class="mb-1">
+
+                            🌎 {{ reserva.viaje.pais }}
 
                         </p>
 
 
-                        <p>
+                        <p class="mb-1">
 
                             <strong>
-                                Regreso:
+                                Precio por persona:
                             </strong>
 
-                            {{ viaje.fecha_regreso|date:"d/m/Y" }}
+                            ${{ reserva.viaje.precio }}
 
                         </p>
 
@@ -81,42 +74,12 @@ Reservar viaje | Roma Travel
                                 Cupos disponibles:
                             </strong>
 
-                            {{ viaje.cupos }}
+                            {{ reserva.viaje.cupos }}
 
                         </p>
 
 
                     </div>
-
-
-                    <div class="text-center my-4">
-
-
-                        <p class="text-muted mb-1">
-
-                            Precio por persona
-
-                        </p>
-
-
-                        <h2 class="text-primary fw-bold">
-
-                            ${{ viaje.precio }}
-
-                        </h2>
-
-
-                    </div>
-
-
-                    <hr>
-
-
-                    <h4 class="mb-4">
-
-                        👤 Datos de la reserva
-
-                    </h4>
 
 
                     <form method="POST">
@@ -131,7 +94,9 @@ Reservar viaje | Roma Travel
                         <div class="mb-3">
 
 
-                            <label class="form-label fw-bold">
+                            <label
+                                class="form-label fw-bold"
+                            >
 
                                 {{ campo.label }}
 
@@ -162,29 +127,29 @@ Reservar viaje | Roma Travel
 
                         <div class="alert alert-info">
 
-                            💰 El total se calculará
-                            automáticamente según el precio
-                            del viaje y la cantidad de personas.
+                            💰 Si modificas la cantidad de
+                            personas, el precio total será
+                            calculado nuevamente.
 
                         </div>
 
 
                         <button
                             type="submit"
-                            class="btn btn-success btn-lg w-100"
+                            class="btn btn-warning btn-lg w-100"
                         >
 
-                            ✅ Confirmar reserva
+                            💾 Guardar cambios
 
                         </button>
 
 
                         <a
-                            href="{% url 'viajes_disponibles' %}"
+                            href="{% url 'lista_reservas' %}"
                             class="btn btn-outline-secondary w-100 mt-2"
                         >
 
-                            Volver
+                            Cancelar
 
                         </a>
 

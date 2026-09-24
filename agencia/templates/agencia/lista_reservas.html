@@ -2,7 +2,9 @@
 
 
 {% block title %}
-Reservas | Roma Travel
+
+Mis reservas | Roma Travel
+
 {% endblock %}
 
 
@@ -15,11 +17,16 @@ Reservas | Roma Travel
     <div class="mb-4">
 
         <h1 class="fw-bold">
+
             📋 Reservas realizadas
+
         </h1>
 
         <p class="text-muted">
-            Registro de reservas de Roma Travel.
+
+            Consulta, modifica o elimina
+            las reservas registradas.
+
         </p>
 
     </div>
@@ -28,7 +35,9 @@ Reservas | Roma Travel
     <div class="table-responsive">
 
 
-        <table class="table table-hover table-bordered bg-white shadow-sm">
+        <table
+            class="table table-hover table-bordered bg-white shadow"
+        >
 
 
             <thead class="table-primary">
@@ -60,7 +69,11 @@ Reservas | Roma Travel
                     </th>
 
                     <th>
-                        Fecha reserva
+                        Fecha
+                    </th>
+
+                    <th>
+                        Acciones
                     </th>
 
                 </tr>
@@ -77,31 +90,77 @@ Reservas | Roma Travel
                 <tr>
 
                     <td>
+
                         {{ reserva.nombre }}
+
                     </td>
 
+
                     <td>
+
                         {{ reserva.rut }}
+
                     </td>
 
+
                     <td>
+
                         {{ reserva.correo }}
+
                     </td>
 
+
                     <td>
-                        {{ reserva.viaje.destino }}
+
+                        ✈️ {{ reserva.viaje.destino }}
+
                     </td>
+
 
                     <td class="text-center">
+
                         {{ reserva.cantidad_personas }}
+
                     </td>
 
-                    <td>
+
+                    <td class="fw-bold text-primary">
+
                         ${{ reserva.precio_total }}
+
                     </td>
 
+
                     <td>
+
                         {{ reserva.fecha_reserva|date:"d/m/Y H:i" }}
+
+                    </td>
+
+
+                    <td>
+
+
+                        <a
+                            href="{% url 'editar_reserva' reserva.id %}"
+                            class="btn btn-warning btn-sm mb-1"
+                        >
+
+                            ✏️ Editar
+
+                        </a>
+
+
+                        <a
+                            href="{% url 'eliminar_reserva' reserva.id %}"
+                            class="btn btn-danger btn-sm mb-1"
+                        >
+
+                            🗑️ Eliminar
+
+                        </a>
+
+
                     </td>
 
                 </tr>
@@ -113,11 +172,22 @@ Reservas | Roma Travel
                 <tr>
 
                     <td
-                        colspan="7"
-                        class="text-center p-4"
+                        colspan="8"
+                        class="text-center p-5"
                     >
 
-                        No existen reservas registradas.
+                        <h4>
+
+                            📋 No existen reservas registradas
+
+                        </h4>
+
+                        <p class="text-muted">
+
+                            Realiza una reserva para que
+                            aparezca en este listado.
+
+                        </p>
 
                     </td>
 
@@ -136,12 +206,30 @@ Reservas | Roma Travel
     </div>
 
 
-    <a
-        href="{% url 'viajes_disponibles' %}"
-        class="btn btn-primary"
-    >
-        ✈️ Volver a viajes
-    </a>
+    <div class="mt-4">
+
+
+        <a
+            href="{% url 'viajes_disponibles' %}"
+            class="btn btn-success"
+        >
+
+            🧳 Realizar nueva reserva
+
+        </a>
+
+
+        <a
+            href="{% url 'inicio' %}"
+            class="btn btn-outline-secondary"
+        >
+
+            🏠 Volver al inicio
+
+        </a>
+
+
+    </div>
 
 
 </div>

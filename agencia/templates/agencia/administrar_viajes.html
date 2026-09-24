@@ -2,7 +2,9 @@
 
 
 {% block title %}
+
 Administrar viajes | Roma Travel
+
 {% endblock %}
 
 
@@ -16,14 +18,21 @@ Administrar viajes | Roma Travel
         class="d-flex justify-content-between align-items-center mb-4"
     >
 
+
         <div>
 
             <h1 class="fw-bold">
+
                 ⚙️ Administrar viajes
+
             </h1>
 
+
             <p class="text-muted">
-                Administración de viajes de Roma Travel.
+
+                Crear, consultar, editar y eliminar
+                viajes de Roma Travel.
+
             </p>
 
         </div>
@@ -31,9 +40,11 @@ Administrar viajes | Roma Travel
 
         <a
             href="{% url 'crear_viaje' %}"
-            class="btn btn-primary btn-lg"
+            class="btn btn-success btn-lg"
         >
-            + Agregar viaje
+
+            ➕ Agregar viaje
+
         </a>
 
 
@@ -43,12 +54,19 @@ Administrar viajes | Roma Travel
     <div class="table-responsive">
 
 
-        <table class="table table-bordered table-hover bg-white shadow">
+        <table
+            class="table table-bordered table-hover bg-white shadow"
+        >
 
 
             <thead class="table-primary">
 
+
                 <tr>
+
+                    <th>
+                        ID
+                    </th>
 
                     <th>
                         Destino
@@ -63,6 +81,10 @@ Administrar viajes | Roma Travel
                     </th>
 
                     <th>
+                        Regreso
+                    </th>
+
+                    <th>
                         Precio
                     </th>
 
@@ -71,10 +93,15 @@ Administrar viajes | Roma Travel
                     </th>
 
                     <th>
+                        Tipo
+                    </th>
+
+                    <th>
                         Acciones
                     </th>
 
                 </tr>
+
 
             </thead>
 
@@ -87,43 +114,88 @@ Administrar viajes | Roma Travel
 
                 <tr>
 
+
                     <td>
+
+                        {{ viaje.id }}
+
+                    </td>
+
+
+                    <td>
+
                         {{ viaje.destino }}
+
                     </td>
 
+
                     <td>
+
                         {{ viaje.pais }}
+
                     </td>
 
+
                     <td>
+
                         {{ viaje.fecha_salida|date:"d/m/Y" }}
+
                     </td>
 
+
                     <td>
+
+                        {{ viaje.fecha_regreso|date:"d/m/Y" }}
+
+                    </td>
+
+
+                    <td>
+
                         ${{ viaje.precio }}
+
                     </td>
 
+
                     <td>
+
                         {{ viaje.cupos }}
+
                     </td>
 
+
                     <td>
+
+                        {{ viaje.tipo_viaje }}
+
+                    </td>
+
+
+                    <td>
+
 
                         <a
                             href="{% url 'editar_viaje' viaje.id %}"
-                            class="btn btn-warning btn-sm"
+                            class="btn btn-warning btn-sm mb-1"
                         >
-                            Editar
+
+                            ✏️ Editar
+
                         </a>
+
 
                         <a
                             href="{% url 'eliminar_viaje' viaje.id %}"
-                            class="btn btn-danger btn-sm"
+                            class="btn btn-danger btn-sm mb-1"
                         >
-                            Eliminar
+
+                            🗑️ Eliminar
+
                         </a>
 
+
                     </td>
+
 
                 </tr>
 
@@ -133,12 +205,16 @@ Administrar viajes | Roma Travel
 
                 <tr>
 
+
                     <td
-                        colspan="6"
-                        class="text-center p-4"
+                        colspan="9"
+                        class="text-center p-5"
                     >
-                        No hay viajes registrados.
+
+                        No existen viajes registrados.
+
                     </td>
+
 
                 </tr>
 

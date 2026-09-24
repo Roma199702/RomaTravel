@@ -2,6 +2,10 @@ from django.db import models
 from django.core.validators import MinValueValidator
 
 
+# ==================================================
+# MODELO VIAJE
+# ==================================================
+
 class Viaje(models.Model):
 
     TIPOS_VIAJE = [
@@ -39,17 +43,21 @@ class Viaje(models.Model):
     )
 
     tipo_viaje = models.CharField(
-        max_length=30,
+        max_length=100,
         choices=TIPOS_VIAJE
     )
 
-    descripcion = models.TextField(
-        max_length=500
+    descripcion = models.CharField(
+        max_length=100
     )
 
     def __str__(self):
         return f"{self.destino} - {self.pais}"
 
+
+# ==================================================
+# MODELO RESERVA
+# ==================================================
 
 class Reserva(models.Model):
 
@@ -67,7 +75,9 @@ class Reserva(models.Model):
         max_length=12
     )
 
-    correo = models.EmailField()
+    correo = models.EmailField(
+        max_length=100
+    )
 
     cantidad_personas = models.PositiveIntegerField(
         validators=[
