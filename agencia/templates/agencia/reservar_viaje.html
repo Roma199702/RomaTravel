@@ -1,210 +1,168 @@
 {% extends 'agencia/base.html' %}
 
-
 {% block title %}
-
 Reservar viaje | Roma Travel
-
 {% endblock %}
-
 
 {% block contenido %}
 
+<div class="container py-5">
 
-<div class="container my-5">
+    <div class="page-header text-center">
 
+        <h1>
+            <i class="bi bi-airplane me-2"></i>
+            Reserva tu viaje
+        </h1>
 
-    <div class="row justify-content-center">
+        <p>
+            Completa tus datos para reservar
+            tu próxima aventura.
+        </p>
 
+    </div>
 
-        <div class="col-lg-7">
+    <div class="row g-4 justify-content-center">
 
+        <div class="col-lg-4">
 
-            <div class="card shadow">
+            <div class="card h-100">
 
+                <div class="card-body p-4">
 
-                <div class="card-body p-5">
-
-
-                    <h2 class="fw-bold text-center mb-4">
-
-                        🧳 Reservar viaje
-
-                    </h2>
-
-
-                    <div class="alert alert-primary">
-
-
-                        <h3>
-
-                            ✈️ {{ viaje.destino }}
-
-                        </h3>
-
-
-                        <p>
-
-                            🌎 {{ viaje.pais }}
-
-                        </p>
-
-
-                        <hr>
-
-
-                        <p>
-
-                            <strong>
-                                Salida:
-                            </strong>
-
-                            {{ viaje.fecha_salida|date:"d/m/Y" }}
-
-                        </p>
-
-
-                        <p>
-
-                            <strong>
-                                Regreso:
-                            </strong>
-
-                            {{ viaje.fecha_regreso|date:"d/m/Y" }}
-
-                        </p>
-
-
-                        <p class="mb-0">
-
-                            <strong>
-                                Cupos disponibles:
-                            </strong>
-
-                            {{ viaje.cupos }}
-
-                        </p>
-
-
+                    <div class="trip-icon mb-3">
+                        <i class="bi bi-geo-alt-fill"></i>
                     </div>
 
+                    <h3 class="fw-bold">
+                        {{ viaje.destino }}
+                    </h3>
 
-                    <div class="text-center my-4">
-
-
-                        <p class="text-muted mb-1">
-
-                            Precio por persona
-
-                        </p>
-
-
-                        <h2 class="text-primary fw-bold">
-
-                            ${{ viaje.precio }}
-
-                        </h2>
-
-
-                    </div>
-
+                    <p class="text-muted">
+                        <i class="bi bi-globe me-1"></i>
+                        {{ viaje.pais }}
+                    </p>
 
                     <hr>
 
+                    <p>
+                        <strong>Salida:</strong><br>
+                        {{ viaje.fecha_salida|date:"d/m/Y" }}
+                    </p>
 
-                    <h4 class="mb-4">
+                    <p>
+                        <strong>Regreso:</strong><br>
+                        {{ viaje.fecha_regreso|date:"d/m/Y" }}
+                    </p>
 
-                        👤 Datos de la reserva
+                    <p>
+                        <strong>Tipo:</strong><br>
+                        {{ viaje.tipo_viaje }}
+                    </p>
 
-                    </h4>
+                    <p>
+                        <strong>Cupos disponibles:</strong>
+                        {{ viaje.cupos }}
+                    </p>
 
+                    <hr>
 
-                    <form method="POST">
+                    <small class="text-muted">
+                        Precio por persona
+                    </small>
 
-
-                        {% csrf_token %}
-
-
-                        {% for campo in formulario %}
-
-
-                        <div class="mb-3">
-
-
-                            <label class="form-label fw-bold">
-
-                                {{ campo.label }}
-
-                            </label>
-
-
-                            {{ campo }}
-
-
-                            {% for error in campo.errors %}
-
-
-                            <div class="text-danger mt-1">
-
-                                {{ error }}
-
-                            </div>
-
-
-                            {% endfor %}
-
-
-                        </div>
-
-
-                        {% endfor %}
-
-
-                        <div class="alert alert-info">
-
-                            💰 El total se calculará
-                            automáticamente según el precio
-                            del viaje y la cantidad de personas.
-
-                        </div>
-
-
-                        <button
-                            type="submit"
-                            class="btn btn-success btn-lg w-100"
-                        >
-
-                            ✅ Confirmar reserva
-
-                        </button>
-
-
-                        <a
-                            href="{% url 'viajes_disponibles' %}"
-                            class="btn btn-outline-secondary w-100 mt-2"
-                        >
-
-                            Volver
-
-                        </a>
-
-
-                    </form>
-
+                    <div class="precio">
+                        ${{ viaje.precio }}
+                    </div>
 
                 </div>
 
-
             </div>
-
 
         </div>
 
 
+        <div class="col-lg-7">
+
+            <div class="card form-card">
+
+                <div class="form-header">
+
+                    <h3 class="mb-1">
+                        Datos de la reserva
+                    </h3>
+
+                    <p class="mb-0">
+                        Ingresa la información del pasajero.
+                    </p>
+
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        {% for campo in formulario %}
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+                                    {{ campo.label }}
+                                </label>
+
+                                {{ campo }}
+
+                                {% if campo.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ campo.errors }}
+                                    </div>
+                                {% endif %}
+
+                            </div>
+
+                        {% endfor %}
+
+                        <div class="alert alert-info">
+
+                            <i class="bi bi-info-circle me-1"></i>
+
+                            El precio total se calcula
+                            automáticamente según la cantidad
+                            de personas.
+
+                        </div>
+
+                        <div class="d-flex gap-2">
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                            >
+                                <i class="bi bi-calendar-check me-1"></i>
+                                Confirmar reserva
+                            </button>
+
+                            <a
+                                href="{% url 'viajes_disponibles' %}"
+                                class="btn btn-outline-secondary"
+                            >
+                                Volver
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-
 </div>
-
 
 {% endblock %}

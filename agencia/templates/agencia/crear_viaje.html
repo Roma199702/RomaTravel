@@ -1,129 +1,91 @@
 {% extends 'agencia/base.html' %}
 
-
 {% block title %}
-
 Crear viaje | Roma Travel
-
 {% endblock %}
-
 
 {% block contenido %}
 
-
-<div class="container my-5">
-
+<div class="container py-5">
 
     <div class="row justify-content-center">
 
-
         <div class="col-lg-8">
 
+            <div class="card form-card">
 
-            <div class="card shadow">
+                <div class="form-header">
+                    <h2 class="mb-1">
+                        <i class="bi bi-plus-circle me-2"></i>
+                        Crear nuevo viaje
+                    </h2>
 
-
-                <div class="card-body p-5">
-
-
-                    <h1 class="fw-bold mb-2">
-
-                        ➕ Crear nuevo viaje
-
-                    </h1>
-
-
-                    <p class="text-muted mb-4">
-
-                        Complete los datos para registrar
-                        un nuevo viaje en Roma Travel.
-
+                    <p class="mb-0">
+                        Ingresa los datos del nuevo destino.
                     </p>
+                </div>
 
+                <div class="card-body p-4 p-md-5">
 
                     <form method="POST">
 
-
                         {% csrf_token %}
 
+                        {% if formulario.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ formulario.non_field_errors }}
+                            </div>
+                        {% endif %}
 
                         {% for campo in formulario %}
 
+                            <div class="mb-3">
 
-                        <div class="mb-3">
+                                <label class="form-label">
+                                    {{ campo.label }}
+                                </label>
 
+                                {{ campo }}
 
-                            <label class="form-label fw-bold">
-
-                                {{ campo.label }}
-
-                            </label>
-
-
-                            {{ campo }}
-
-
-                            {% for error in campo.errors %}
-
-
-                            <div class="text-danger mt-1">
-
-                                {{ error }}
+                                {% if campo.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ campo.errors }}
+                                    </div>
+                                {% endif %}
 
                             </div>
 
-
-                            {% endfor %}
-
-
-                        </div>
-
-
                         {% endfor %}
 
-
-                        <div class="mt-4">
-
+                        <div class="d-flex gap-2 mt-4">
 
                             <button
                                 type="submit"
-                                class="btn btn-success btn-lg"
+                                class="btn btn-primary"
                             >
-
-                                💾 Guardar viaje
-
+                                <i class="bi bi-check-circle me-1"></i>
+                                Guardar viaje
                             </button>
-
 
                             <a
                                 href="{% url 'administrar_viajes' %}"
-                                class="btn btn-outline-secondary btn-lg"
+                                class="btn btn-outline-secondary"
                             >
-
                                 Cancelar
-
                             </a>
-
 
                         </div>
 
-
                     </form>
-
 
                 </div>
 
-
             </div>
-
 
         </div>
 
-
     </div>
 
-
 </div>
-
 
 {% endblock %}

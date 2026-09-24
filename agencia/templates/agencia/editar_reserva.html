@@ -1,175 +1,97 @@
 {% extends 'agencia/base.html' %}
 
-
 {% block title %}
-
 Editar reserva | Roma Travel
-
 {% endblock %}
-
 
 {% block contenido %}
 
-
-<div class="container my-5">
-
+<div class="container py-5">
 
     <div class="row justify-content-center">
 
-
         <div class="col-lg-7">
 
+            <div class="card form-card">
 
-            <div class="card shadow">
+                <div class="form-header">
 
+                    <h2 class="mb-1">
+                        <i class="bi bi-pencil-square me-2"></i>
+                        Editar reserva
+                    </h2>
 
-                <div class="card-body p-5">
-
-
-                    <h1 class="fw-bold">
-
-                        ✏️ Editar reserva
-
-                    </h1>
-
-
-                    <p class="text-muted">
-
-                        Modifica los datos de tu reserva.
-
+                    <p class="mb-0">
+                        Destino: {{ reserva.viaje.destino }}
                     </p>
-
-
-                    <div class="alert alert-primary mt-4">
-
-
-                        <h4>
-
-                            ✈️ {{ reserva.viaje.destino }}
-
-                        </h4>
-
-
-                        <p class="mb-1">
-
-                            🌎 {{ reserva.viaje.pais }}
-
-                        </p>
-
-
-                        <p class="mb-1">
-
-                            <strong>
-                                Precio por persona:
-                            </strong>
-
-                            ${{ reserva.viaje.precio }}
-
-                        </p>
-
-
-                        <p class="mb-0">
-
-                            <strong>
-                                Cupos disponibles:
-                            </strong>
-
-                            {{ reserva.viaje.cupos }}
-
-                        </p>
-
-
-                    </div>
-
-
-                    <form method="POST">
-
-
-                        {% csrf_token %}
-
-
-                        {% for campo in formulario %}
-
-
-                        <div class="mb-3">
-
-
-                            <label
-                                class="form-label fw-bold"
-                            >
-
-                                {{ campo.label }}
-
-                            </label>
-
-
-                            {{ campo }}
-
-
-                            {% for error in campo.errors %}
-
-
-                            <div class="text-danger mt-1">
-
-                                {{ error }}
-
-                            </div>
-
-
-                            {% endfor %}
-
-
-                        </div>
-
-
-                        {% endfor %}
-
-
-                        <div class="alert alert-info">
-
-                            💰 Si modificas la cantidad de
-                            personas, el precio total será
-                            calculado nuevamente.
-
-                        </div>
-
-
-                        <button
-                            type="submit"
-                            class="btn btn-warning btn-lg w-100"
-                        >
-
-                            💾 Guardar cambios
-
-                        </button>
-
-
-                        <a
-                            href="{% url 'lista_reservas' %}"
-                            class="btn btn-outline-secondary w-100 mt-2"
-                        >
-
-                            Cancelar
-
-                        </a>
-
-
-                    </form>
-
 
                 </div>
 
+                <div class="card-body p-4 p-md-5">
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        {% for campo in formulario %}
+
+                            <div class="mb-3">
+
+                                <label class="form-label">
+                                    {{ campo.label }}
+                                </label>
+
+                                {{ campo }}
+
+                                {% if campo.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {{ campo.errors }}
+                                    </div>
+                                {% endif %}
+
+                            </div>
+
+                        {% endfor %}
+
+                        <div class="alert alert-info">
+
+                            <i class="bi bi-info-circle me-1"></i>
+
+                            Al modificar la cantidad de personas,
+                            el precio total y los cupos disponibles
+                            se actualizarán automáticamente.
+
+                        </div>
+
+                        <div class="d-flex gap-2">
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                            >
+                                <i class="bi bi-check-circle me-1"></i>
+                                Guardar cambios
+                            </button>
+
+                            <a
+                                href="{% url 'lista_reservas' %}"
+                                class="btn btn-outline-secondary"
+                            >
+                                Cancelar
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
 
             </div>
 
-
         </div>
-
 
     </div>
 
-
 </div>
-
 
 {% endblock %}

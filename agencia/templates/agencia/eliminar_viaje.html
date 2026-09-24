@@ -1,128 +1,77 @@
 {% extends 'agencia/base.html' %}
 
-
 {% block title %}
-
 Eliminar viaje | Roma Travel
-
 {% endblock %}
-
 
 {% block contenido %}
 
-
-<div class="container my-5">
-
+<div class="container py-5">
 
     <div class="row justify-content-center">
 
-
         <div class="col-lg-6">
 
+            <div class="card">
 
-            <div class="card shadow">
-
-
-                <div class="card-body p-5 text-center">
-
+                <div class="card-body text-center p-5">
 
                     <div
-                        style="font-size: 65px;"
+                        class="display-4 text-danger mb-3"
                     >
-
-                        🗑️
-
+                        <i class="bi bi-exclamation-triangle"></i>
                     </div>
 
-
-                    <h1 class="text-danger fw-bold">
-
+                    <h2 class="fw-bold">
                         Eliminar viaje
+                    </h2>
 
-                    </h1>
-
-
-                    <p class="fs-5 mt-4">
-
-                        ¿Estás seguro de que deseas
-                        eliminar el viaje a
-
-                        <strong>
-
-                            {{ viaje.destino }}
-
-                        </strong>
-
-                        ?
-
+                    <p class="text-muted mt-3">
+                        ¿Estás segura de que deseas eliminar
+                        este viaje?
                     </p>
 
-
-                    <div class="alert alert-warning">
-
+                    <div class="alert alert-light">
 
                         <strong>
-                            País:
+                            {{ viaje.destino }}
                         </strong>
-
-                        {{ viaje.pais }}
-
 
                         <br>
 
-
-                        <strong>
-                            Fecha de salida:
-                        </strong>
-
-                        {{ viaje.fecha_salida|date:"d/m/Y" }}
-
+                        {{ viaje.pais }}
 
                     </div>
 
-
                     <form method="POST">
-
 
                         {% csrf_token %}
 
-
                         <button
                             type="submit"
-                            class="btn btn-danger btn-lg"
+                            class="btn btn-danger"
                         >
-
-                            🗑️ Sí, eliminar
-
+                            <i class="bi bi-trash me-1"></i>
+                            Sí, eliminar
                         </button>
-
 
                         <a
                             href="{% url 'administrar_viajes' %}"
-                            class="btn btn-outline-secondary btn-lg"
+                            class="btn btn-outline-secondary"
                         >
-
                             Cancelar
-
                         </a>
-
 
                     </form>
 
-
                 </div>
-
 
             </div>
 
-
         </div>
-
 
     </div>
 
-
 </div>
-
 
 {% endblock %}
