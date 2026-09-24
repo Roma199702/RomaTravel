@@ -1,0 +1,172 @@
+{% extends 'agencia/base.html' %}
+
+
+{% block title %}
+Sobre nosotros | Roma Travel
+{% endblock %}
+
+
+{% block contenido %}
+
+
+<div class="container my-5">
+
+
+    <div class="text-center mb-5">
+
+        <h1 class="fw-bold">
+            ✈️ Sobre Roma Travel
+        </h1>
+
+        <p class="fs-5 text-muted">
+            Tu próximo destino comienza aquí
+        </p>
+
+    </div>
+
+
+    <div class="text-center mb-5">
+
+        <h2 class="fw-bold">
+            Bienvenido a Roma Travel
+        </h2>
+
+        <p class="fs-5 text-muted mt-4">
+
+            Somos una agencia dedicada a ofrecer
+            diferentes alternativas de viajes
+            nacionales e internacionales.
+
+        </p>
+
+        <p class="fs-5 text-muted">
+
+            Revisa nuestros destinos disponibles,
+            compara fechas y precios y selecciona
+            la opción ideal para tu próximo viaje.
+
+        </p>
+
+    </div>
+
+
+    <div class="row g-4">
+
+
+        <div class="col-md-4">
+
+            <div class="card shadow h-100">
+
+                <img
+                    src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
+                    class="destination-image"
+                    alt="Playa"
+                >
+
+                <div class="card-body text-center p-4">
+
+                    <h3 class="fw-bold">
+                        🏖️ Playas
+                    </h3>
+
+                    <p class="text-muted">
+
+                        Descubre destinos de playa
+                        para disfrutar tus vacaciones.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="card shadow h-100">
+
+                <img
+                    src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a"
+                    class="destination-image"
+                    alt="Ciudades"
+                >
+
+                <div class="card-body text-center p-4">
+
+                    <h3 class="fw-bold">
+                        🏛️ Ciudades
+                    </h3>
+
+                    <p class="text-muted">
+
+                        Conoce ciudades llenas de cultura,
+                        historia y experiencias.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-4">
+
+            <div class="card shadow h-100">
+
+                <img
+                    src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b"
+                    class="destination-image"
+                    alt="Aventura"
+                >
+
+                <div class="card-body text-center p-4">
+
+                    <h3 class="fw-bold">
+                        🏔️ Aventura
+                    </h3>
+
+                    <p class="text-muted">
+
+                        Explora nuevos lugares y vive
+                        experiencias inolvidables.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="text-center mt-5">
+
+        <h2 class="fw-bold">
+            ¿Listo para tu próximo viaje?
+        </h2>
+
+        <p class="text-muted">
+            Revisa las opciones disponibles en Roma Travel.
+        </p>
+
+        <a
+            href="{% url 'viajes_disponibles' %}"
+            class="btn btn-warning btn-lg px-5"
+        >
+            🧳 Ver viajes disponibles
+        </a>
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

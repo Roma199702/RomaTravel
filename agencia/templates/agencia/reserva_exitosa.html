@@ -1,0 +1,129 @@
+{% extends 'agencia/base.html' %}
+
+
+{% block title %}
+Reserva confirmada | Roma Travel
+{% endblock %}
+
+
+{% block contenido %}
+
+
+<div class="container my-5">
+
+
+    <div class="row justify-content-center">
+
+
+        <div class="col-lg-6">
+
+
+            <div class="card shadow">
+
+
+                <div class="card-body p-5 text-center">
+
+
+                    <div style="font-size: 70px;">
+                        ✅
+                    </div>
+
+
+                    <h2 class="text-success fw-bold">
+                        ¡Reserva confirmada!
+                    </h2>
+
+
+                    <p class="text-muted">
+                        Tu reserva fue registrada correctamente.
+                    </p>
+
+
+                    <hr>
+
+
+                    <h3>
+                        ✈️ {{ reserva.viaje.destino }}
+                    </h3>
+
+
+                    <p>
+                        {{ reserva.viaje.pais }}
+                    </p>
+
+
+                    <hr>
+
+
+                    <p>
+                        <strong>Nombre:</strong>
+                        {{ reserva.nombre }}
+                    </p>
+
+
+                    <p>
+                        <strong>RUT:</strong>
+                        {{ reserva.rut }}
+                    </p>
+
+
+                    <p>
+                        <strong>Correo:</strong>
+                        {{ reserva.correo }}
+                    </p>
+
+
+                    <p>
+                        <strong>Cantidad de personas:</strong>
+                        {{ reserva.cantidad_personas }}
+                    </p>
+
+
+                    <p>
+                        <strong>Precio por persona:</strong>
+                        ${{ reserva.viaje.precio }}
+                    </p>
+
+
+                    <p class="mb-1">
+                        Total de la reserva
+                    </p>
+
+
+                    <h1 class="text-primary fw-bold">
+                        ${{ reserva.precio_total }}
+                    </h1>
+
+
+                    <a
+                        href="{% url 'lista_reservas' %}"
+                        class="btn btn-primary mt-4"
+                    >
+                        📋 Ver reservas
+                    </a>
+
+
+                    <a
+                        href="{% url 'viajes_disponibles' %}"
+                        class="btn btn-outline-secondary mt-4"
+                    >
+                        Ver otros viajes
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

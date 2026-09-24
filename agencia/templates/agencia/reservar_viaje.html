@@ -1,0 +1,218 @@
+{% extends 'agencia/base.html' %}
+
+
+{% block title %}
+Reservar viaje | Roma Travel
+{% endblock %}
+
+
+{% block contenido %}
+
+
+<div class="container my-5">
+
+
+    <div class="row justify-content-center">
+
+
+        <div class="col-lg-7">
+
+
+            <div class="card shadow">
+
+
+                <div class="card-body p-5">
+
+
+                    <h2 class="fw-bold text-center mb-4">
+                        🧳 Reservar viaje
+                    </h2>
+
+
+                    <div class="alert alert-primary">
+
+
+                        <h3>
+                            ✈️ {{ viaje.destino }}
+                        </h3>
+
+
+                        <p>
+                            🌎 {{ viaje.pais }}
+                        </p>
+
+
+                        <hr>
+
+
+                        <p>
+                            <strong>Salida:</strong>
+                            {{ viaje.fecha_salida|date:"d/m/Y" }}
+                        </p>
+
+
+                        <p>
+                            <strong>Regreso:</strong>
+                            {{ viaje.fecha_regreso|date:"d/m/Y" }}
+                        </p>
+
+
+                        <p class="mb-0">
+
+                            <strong>Cupos disponibles:</strong>
+
+                            {{ viaje.cupos }}
+
+                        </p>
+
+
+                    </div>
+
+
+                    <div class="text-center my-4">
+
+                        <p class="text-muted mb-1">
+                            Precio por persona
+                        </p>
+
+                        <h2 class="text-primary fw-bold">
+                            ${{ viaje.precio }}
+                        </h2>
+
+                    </div>
+
+
+                    <hr>
+
+
+                    <h4 class="mb-4">
+                        👤 Datos de la persona que reserva
+                    </h4>
+
+
+                    <form method="POST">
+
+
+                        {% csrf_token %}
+
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-bold">
+                                Nombre completo
+                            </label>
+
+                            {{ formulario.nombre }}
+
+                            {% for error in formulario.nombre.errors %}
+
+                            <div class="text-danger">
+                                {{ error }}
+                            </div>
+
+                            {% endfor %}
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-bold">
+                                RUT
+                            </label>
+
+                            {{ formulario.rut }}
+
+                            {% for error in formulario.rut.errors %}
+
+                            <div class="text-danger">
+                                {{ error }}
+                            </div>
+
+                            {% endfor %}
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label class="form-label fw-bold">
+                                Correo electrónico
+                            </label>
+
+                            {{ formulario.correo }}
+
+                            {% for error in formulario.correo.errors %}
+
+                            <div class="text-danger">
+                                {{ error }}
+                            </div>
+
+                            {% endfor %}
+
+                        </div>
+
+
+                        <div class="mb-4">
+
+                            <label class="form-label fw-bold">
+                                ¿Para cuántas personas?
+                            </label>
+
+                            {{ formulario.cantidad_personas }}
+
+                            {% for error in formulario.cantidad_personas.errors %}
+
+                            <div class="text-danger">
+                                {{ error }}
+                            </div>
+
+                            {% endfor %}
+
+                        </div>
+
+
+                        <div class="alert alert-info">
+
+                            💰 El precio total se calculará
+                            automáticamente de acuerdo con
+                            la cantidad de personas.
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-success btn-lg w-100"
+                        >
+                            ✅ Confirmar reserva
+                        </button>
+
+
+                        <a
+                            href="{% url 'viajes_disponibles' %}"
+                            class="btn btn-outline-secondary w-100 mt-2"
+                        >
+                            Volver a viajes
+                        </a>
+
+
+                    </form>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

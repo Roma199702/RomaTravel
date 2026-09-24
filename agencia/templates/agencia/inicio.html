@@ -1,0 +1,48 @@
+{% extends 'agencia/base.html' %}
+
+
+{% block title %}
+Inicio | Roma Travel
+{% endblock %}
+
+
+{% block contenido %}
+
+
+<section class="hero">
+
+    <div class="container text-center">
+
+        <h1>
+            ✈️ Roma Travel
+        </h1>
+
+
+        <p class="fs-2 mt-3">
+
+            Tu próximo destino comienza aquí
+
+        </p>
+
+
+        <p class="fs-5 mt-4">
+
+            Descubre destinos increíbles y encuentra
+            el viaje perfecto para tus próximas vacaciones.
+
+        </p>
+
+
+        <a
+            href="{% url 'viajes_disponibles' %}"
+            class="btn btn-warning btn-lg px-5 py-3 mt-4"
+        >
+            🧳 Reservar viaje
+        </a>
+
+    </div>
+
+</section>
+
+
+{% endblock %}

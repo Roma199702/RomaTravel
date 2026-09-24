@@ -1,0 +1,150 @@
+{% extends 'agencia/base.html' %}
+
+
+{% block title %}
+Reservas | Roma Travel
+{% endblock %}
+
+
+{% block contenido %}
+
+
+<div class="container my-5">
+
+
+    <div class="mb-4">
+
+        <h1 class="fw-bold">
+            📋 Reservas realizadas
+        </h1>
+
+        <p class="text-muted">
+            Registro de reservas de Roma Travel.
+        </p>
+
+    </div>
+
+
+    <div class="table-responsive">
+
+
+        <table class="table table-hover table-bordered bg-white shadow-sm">
+
+
+            <thead class="table-primary">
+
+                <tr>
+
+                    <th>
+                        Nombre
+                    </th>
+
+                    <th>
+                        RUT
+                    </th>
+
+                    <th>
+                        Correo
+                    </th>
+
+                    <th>
+                        Destino
+                    </th>
+
+                    <th>
+                        Personas
+                    </th>
+
+                    <th>
+                        Total
+                    </th>
+
+                    <th>
+                        Fecha reserva
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+                {% for reserva in reservas %}
+
+
+                <tr>
+
+                    <td>
+                        {{ reserva.nombre }}
+                    </td>
+
+                    <td>
+                        {{ reserva.rut }}
+                    </td>
+
+                    <td>
+                        {{ reserva.correo }}
+                    </td>
+
+                    <td>
+                        {{ reserva.viaje.destino }}
+                    </td>
+
+                    <td class="text-center">
+                        {{ reserva.cantidad_personas }}
+                    </td>
+
+                    <td>
+                        ${{ reserva.precio_total }}
+                    </td>
+
+                    <td>
+                        {{ reserva.fecha_reserva|date:"d/m/Y H:i" }}
+                    </td>
+
+                </tr>
+
+
+                {% empty %}
+
+
+                <tr>
+
+                    <td
+                        colspan="7"
+                        class="text-center p-4"
+                    >
+
+                        No existen reservas registradas.
+
+                    </td>
+
+                </tr>
+
+
+                {% endfor %}
+
+
+            </tbody>
+
+
+        </table>
+
+
+    </div>
+
+
+    <a
+        href="{% url 'viajes_disponibles' %}"
+        class="btn btn-primary"
+    >
+        ✈️ Volver a viajes
+    </a>
+
+
+</div>
+
+
+{% endblock %}
