@@ -3,7 +3,7 @@
 
 {% block title %}
 
-Inicio | Roma Travel
+Roma Travel | Inicio
 
 {% endblock %}
 
@@ -11,42 +11,209 @@ Inicio | Roma Travel
 {% block contenido %}
 
 
+<!-- PORTADA -->
+
 <section class="hero">
 
 
-    <div class="container text-center">
+    <div class="hero-content">
+
+
+        <div class="hero-badge">
+
+            <i class="bi bi-globe-americas me-1"></i>
+
+            Descubre el mundo con nosotros
+
+        </div>
 
 
         <h1>
 
-            ✈️ Roma Travel
+            Roma Travel
 
         </h1>
 
 
-        <p class="fs-2 mt-3">
+        <p class="hero-subtitle">
 
             Tu próximo destino comienza aquí
 
         </p>
 
 
-        <p class="fs-5 mt-4">
+        <p class="hero-description">
 
-            Descubre destinos increíbles y encuentra
-            el viaje perfecto para tus próximas vacaciones.
+            Descubre destinos inolvidables,
+            encuentra el viaje ideal y reserva
+            tus próximas vacaciones de manera
+            rápida y sencilla.
 
         </p>
 
 
         <a
             href="{% url 'viajes_disponibles' %}"
-            class="btn btn-warning btn-lg px-5 py-3 mt-4"
+            class="btn btn-reservar mt-3"
         >
 
-            🧳 Reservar viaje
+            <i class="bi bi-suitcase-lg me-2"></i>
+
+            Reservar viaje
 
         </a>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- SERVICIOS -->
+
+<section class="container py-5">
+
+
+    <div class="page-header text-center">
+
+
+        <h2>
+
+            Viaja con Roma Travel
+
+        </h2>
+
+
+        <p>
+
+            Todo lo que necesitas para comenzar
+            tu próxima aventura.
+
+        </p>
+
+
+    </div>
+
+
+    <div class="row g-4">
+
+
+        <!-- DESTINOS -->
+
+        <div class="col-md-4">
+
+
+            <div class="card h-100 text-center p-4">
+
+
+                <div
+                    class="trip-icon mx-auto mb-3"
+                >
+
+                    <i class="bi bi-globe-americas"></i>
+
+                </div>
+
+
+                <h4 class="fw-bold">
+
+                    Nuevos destinos
+
+                </h4>
+
+
+                <p class="text-muted mb-0">
+
+                    Explora diferentes viajes
+                    nacionales e internacionales.
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- RESERVA -->
+
+        <div class="col-md-4">
+
+
+            <div class="card h-100 text-center p-4">
+
+
+                <div
+                    class="trip-icon mx-auto mb-3"
+                >
+
+                    <i class="bi bi-calendar-check"></i>
+
+                </div>
+
+
+                <h4 class="fw-bold">
+
+                    Reserva fácilmente
+
+                </h4>
+
+
+                <p class="text-muted mb-0">
+
+                    Elige tu destino y realiza
+                    tu reserva en pocos pasos.
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- GESTIÓN -->
+
+        <div class="col-md-4">
+
+
+            <div class="card h-100 text-center p-4">
+
+
+                <div
+                    class="trip-icon mx-auto mb-3"
+                >
+
+                    <i class="bi bi-pencil-square"></i>
+
+                </div>
+
+
+                <h4 class="fw-bold">
+
+                    Gestiona tu viaje
+
+                </h4>
+
+
+                <p class="text-muted mb-0">
+
+                    Consulta, edita o elimina
+                    tus reservas fácilmente.
+
+                </p>
+
+
+            </div>
+
+
+        </div>
 
 
     </div>

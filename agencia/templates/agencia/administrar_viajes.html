@@ -15,23 +15,23 @@ Administrar viajes | Roma Travel
 
 
     <div
-        class="d-flex justify-content-between align-items-center mb-4"
+        class="d-md-flex justify-content-between align-items-end page-header"
     >
-
 
         <div>
 
-            <h1 class="fw-bold">
+            <h1>
 
-                ⚙️ Administrar viajes
+                <i class="bi bi-gear"></i>
+
+                Administrar viajes
 
             </h1>
 
+            <p class="mb-md-0">
 
-            <p class="text-muted">
-
-                Crear, consultar, editar y eliminar
-                viajes de Roma Travel.
+                Crea, consulta, modifica
+                y elimina los viajes.
 
             </p>
 
@@ -40,193 +40,165 @@ Administrar viajes | Roma Travel
 
         <a
             href="{% url 'crear_viaje' %}"
-            class="btn btn-success btn-lg"
+            class="btn btn-success"
         >
 
-            ➕ Agregar viaje
+            <i class="bi bi-plus-circle"></i>
+
+            Agregar viaje
 
         </a>
-
 
     </div>
 
 
-    <div class="table-responsive">
+    <div class="table-container">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Destino</th>
+
+                        <th>País</th>
+
+                        <th>Salida</th>
+
+                        <th>Regreso</th>
+
+                        <th>Precio</th>
+
+                        <th>Cupos</th>
+
+                        <th>Tipo</th>
+
+                        <th>Acciones</th>
+
+                    </tr>
+
+                </thead>
 
 
-        <table
-            class="table table-bordered table-hover bg-white shadow"
-        >
+                <tbody>
 
 
-            <thead class="table-primary">
+                    {% for viaje in viajes %}
 
 
-                <tr>
+                    <tr>
 
-                    <th>
-                        ID
-                    </th>
+                        <td>
 
-                    <th>
-                        Destino
-                    </th>
+                            <strong>
 
-                    <th>
-                        País
-                    </th>
+                                {{ viaje.destino }}
 
-                    <th>
-                        Salida
-                    </th>
+                            </strong>
 
-                    <th>
-                        Regreso
-                    </th>
+                        </td>
 
-                    <th>
-                        Precio
-                    </th>
+                        <td>
 
-                    <th>
-                        Cupos
-                    </th>
+                            {{ viaje.pais }}
 
-                    <th>
-                        Tipo
-                    </th>
+                        </td>
 
-                    <th>
-                        Acciones
-                    </th>
+                        <td>
 
-                </tr>
+                            {{ viaje.fecha_salida|date:"d/m/Y" }}
 
+                        </td>
 
-            </thead>
+                        <td>
 
+                            {{ viaje.fecha_regreso|date:"d/m/Y" }}
 
-            <tbody>
+                        </td>
 
+                        <td>
 
-                {% for viaje in viajes %}
+                            <strong class="text-primary">
 
+                                ${{ viaje.precio }}
 
-                <tr>
+                            </strong>
 
+                        </td>
 
-                    <td>
+                        <td>
 
-                        {{ viaje.id }}
+                            {{ viaje.cupos }}
 
-                    </td>
+                        </td>
 
+                        <td>
 
-                    <td>
+                            {{ viaje.tipo_viaje }}
 
-                        {{ viaje.destino }}
+                        </td>
 
-                    </td>
+                        <td>
 
+                            <div class="d-flex gap-1">
 
-                    <td>
+                                <a
+                                    href="{% url 'editar_viaje' viaje.id %}"
+                                    class="btn btn-warning btn-sm"
+                                >
 
-                        {{ viaje.pais }}
+                                    <i class="bi bi-pencil"></i>
 
-                    </td>
+                                    Editar
 
+                                </a>
 
-                    <td>
+                                <a
+                                    href="{% url 'eliminar_viaje' viaje.id %}"
+                                    class="btn btn-danger btn-sm"
+                                >
 
-                        {{ viaje.fecha_salida|date:"d/m/Y" }}
+                                    <i class="bi bi-trash"></i>
 
-                    </td>
+                                    Eliminar
 
+                                </a>
 
-                    <td>
+                            </div>
 
-                        {{ viaje.fecha_regreso|date:"d/m/Y" }}
+                        </td>
 
-                    </td>
+                    </tr>
 
 
-                    <td>
-
-                        ${{ viaje.precio }}
-
-                    </td>
+                    {% empty %}
 
 
-                    <td>
+                    <tr>
 
-                        {{ viaje.cupos }}
-
-                    </td>
-
-
-                    <td>
-
-                        {{ viaje.tipo_viaje }}
-
-                    </td>
-
-
-                    <td>
-
-
-                        <a
-                            href="{% url 'editar_viaje' viaje.id %}"
-                            class="btn btn-warning btn-sm mb-1"
+                        <td
+                            colspan="8"
+                            class="text-center py-5"
                         >
 
-                            ✏️ Editar
+                            No existen viajes registrados.
 
-                        </a>
+                        </td>
 
-
-                        <a
-                            href="{% url 'eliminar_viaje' viaje.id %}"
-                            class="btn btn-danger btn-sm mb-1"
-                        >
-
-                            🗑️ Eliminar
-
-                        </a>
+                    </tr>
 
 
-                    </td>
+                    {% endfor %}
 
 
-                </tr>
+                </tbody>
 
+            </table>
 
-                {% empty %}
-
-
-                <tr>
-
-
-                    <td
-                        colspan="9"
-                        class="text-center p-5"
-                    >
-
-                        No existen viajes registrados.
-
-                    </td>
-
-
-                </tr>
-
-
-                {% endfor %}
-
-
-            </tbody>
-
-
-        </table>
-
+        </div>
 
     </div>
 
