@@ -1,200 +1,646 @@
 {% extends 'agencia/base.html' %}
-
-{% block title %}
-Sobre nosotros | Roma Travel
-{% endblock %}
+{% load static %}
 
 {% block contenido %}
 
-<!-- =====================================
-     PORTADA SOBRE NOSOTROS
-===================================== -->
+<style>
+    /* =====================================================
+       PÁGINA SOBRE NOSOTROS - ROMA TRAVEL
+       ===================================================== */
 
-<section
-    class="py-5"
-    style="
-        background: linear-gradient(135deg, #052d55, #0d6efd);
+    .sobre-nosotros {
+        background-color: #f8faff;
+    }
+
+    /* ---------- ENCABEZADO ---------- */
+
+    .sobre-encabezado {
+        padding-top: 55px;
+        padding-bottom: 25px;
+        text-align: center;
+    }
+
+    .sobre-etiqueta {
+        display: inline-block;
+        background-color: #e7f1ff;
+        color: #0d6efd;
+        font-weight: 600;
+        padding: 8px 18px;
+        border-radius: 30px;
+        margin-bottom: 15px;
+    }
+
+    .sobre-encabezado h1 {
+        font-size: 2.8rem;
+        font-weight: 700;
+        color: #1d2a3a;
+        margin-bottom: 15px;
+    }
+
+    .sobre-encabezado p {
+        max-width: 850px;
+        margin: auto;
+        font-size: 1.25rem;
+        color: #5c6670;
+        line-height: 1.7;
+    }
+
+
+    /* =====================================================
+       QUIÉNES SOMOS
+       ===================================================== */
+
+    .quienes-somos {
+        padding: 55px 0 80px 0;
+    }
+
+    .quienes-texto {
+        padding-right: 25px;
+    }
+
+    .quienes-texto h2 {
+        font-size: 2.6rem;
+        font-weight: 700;
+        color: #172b44;
+        margin-bottom: 25px;
+    }
+
+    .quienes-texto .texto-principal {
+        font-size: 1.25rem;
+        line-height: 1.8;
+        color: #505a66;
+        margin-bottom: 25px;
+    }
+
+    .quienes-texto .texto-secundario {
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: #505a66;
+        margin-bottom: 30px;
+    }
+
+    .btn-explorar {
+        background-color: #0d6efd;
         color: white;
-    "
->
+        border-radius: 12px;
+        padding: 14px 28px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: none;
+        transition: all 0.3s ease;
+    }
 
-    <div class="container py-4">
-
-        <div class="row align-items-center g-5">
-
-            <!-- TEXTO -->
-
-            <div class="col-lg-7">
-
-                <span
-                    class="badge rounded-pill bg-warning text-dark px-3 py-2 mb-3"
-                >
-                    <i class="bi bi-airplane me-1"></i>
-                    Conoce Roma Travel
-                </span>
-
-                <h1
-                    class="display-4 fw-bold mb-3"
-                >
-                    Creamos experiencias
-                    que comienzan con un viaje
-                </h1>
-
-                <p
-                    class="fs-5 mb-4"
-                    style="
-                        color: rgba(255,255,255,0.85);
-                        max-width: 700px;
-                    "
-                >
-                    En Roma Travel queremos ayudarte
-                    a encontrar nuevos destinos,
-                    organizar tus vacaciones y reservar
-                    tu próxima aventura de manera
-                    simple y segura.
-                </p>
-
-                <a
-                    href="{% url 'viajes_disponibles' %}"
-                    class="btn btn-warning btn-lg"
-                >
-                    <i class="bi bi-suitcase-lg me-2"></i>
-                    Explorar viajes
-                </a>
-
-            </div>
+    .btn-explorar:hover {
+        background-color: #0b5ed7;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(13, 110, 253, 0.25);
+    }
 
 
-            <!-- ICONO -->
+    /* =====================================================
+       COLLAGE DE DESTINOS
+       ===================================================== */
 
-            <div
-                class="col-lg-5 text-center d-none d-lg-block"
-            >
+    .destinos-collage {
+        display: flex;
+        width: 100%;
+        height: 470px;
+        border-radius: 25px;
+        overflow: hidden;
+        background-color: white;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
 
-                <i
-                    class="bi bi-globe-americas"
-                    style="
-                        font-size: 180px;
-                        color: rgba(255,255,255,0.20);
-                    "
-                ></i>
+    .destino-collage {
+        position: relative;
+        flex: 1;
+        overflow: hidden;
+        transition: flex 0.4s ease;
+    }
+
+    .destino-collage:not(:last-child) {
+        border-right: 4px solid white;
+    }
+
+    .destino-collage img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .destino-collage::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.02) 30%,
+            rgba(0, 0, 0, 0.15) 55%,
+            rgba(0, 0, 0, 0.85) 100%
+        );
+        z-index: 1;
+    }
+
+    .destino-collage:hover {
+        flex: 1.35;
+    }
+
+    .destino-collage:hover img {
+        transform: scale(1.07);
+    }
+
+    .destino-info {
+        position: absolute;
+        left: 20px;
+        right: 15px;
+        bottom: 20px;
+        z-index: 2;
+        color: white;
+    }
+
+    .destino-info h4 {
+        color: white;
+        font-size: 1.35rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .destino-info p {
+        color: white;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: 0;
+    }
+
+    .destino-info i {
+        margin-right: 5px;
+    }
+
+
+    /* =====================================================
+       DESTINOS DESTACADOS
+       ===================================================== */
+
+    .seccion-destinos {
+        background-color: white;
+        padding: 75px 0;
+    }
+
+    .titulo-seccion {
+        text-align: center;
+        margin-bottom: 45px;
+    }
+
+    .titulo-seccion .subtitulo {
+        color: #0d6efd;
+        font-weight: 700;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
+
+    .titulo-seccion h2 {
+        color: #172b44;
+        font-size: 2.3rem;
+        font-weight: 700;
+        margin-top: 8px;
+        margin-bottom: 12px;
+    }
+
+    .titulo-seccion p {
+        color: #6c757d;
+        font-size: 1.05rem;
+    }
+
+    .tarjeta-destino {
+        border: none;
+        border-radius: 20px;
+        overflow: hidden;
+        background-color: white;
+        height: 100%;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.10);
+        transition: all 0.3s ease;
+    }
+
+    .tarjeta-destino:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.16);
+    }
+
+    .tarjeta-destino img {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+    }
+
+    .tarjeta-destino .card-body {
+        padding: 25px;
+    }
+
+    .tarjeta-destino h3 {
+        color: #172b44;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-top: 12px;
+    }
+
+    .tarjeta-destino p {
+        color: #6c757d;
+        line-height: 1.6;
+    }
+
+
+    /* =====================================================
+       MISIÓN Y VISIÓN
+       ===================================================== */
+
+    .mision-vision {
+        padding: 75px 0;
+        background-color: #f8faff;
+    }
+
+    .tarjeta-info {
+        background-color: white;
+        border-radius: 20px;
+        padding: 40px;
+        height: 100%;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease;
+    }
+
+    .tarjeta-info:hover {
+        transform: translateY(-5px);
+    }
+
+    .icono-info {
+        width: 65px;
+        height: 65px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #e7f1ff;
+        color: #0d6efd;
+        border-radius: 50%;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+    .tarjeta-info h3 {
+        color: #172b44;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+
+    .tarjeta-info p {
+        color: #6c757d;
+        line-height: 1.7;
+        margin-bottom: 0;
+    }
+
+
+    /* =====================================================
+       POR QUÉ ELEGIRNOS
+       ===================================================== */
+
+    .por-que-elegirnos {
+        background-color: white;
+        padding: 75px 0;
+    }
+
+    .beneficio {
+        text-align: center;
+        background-color: #f8faff;
+        padding: 35px 25px;
+        border-radius: 20px;
+        height: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .beneficio:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .beneficio i {
+        color: #0d6efd;
+        font-size: 3rem;
+    }
+
+    .beneficio h4 {
+        color: #172b44;
+        font-weight: 700;
+        margin-top: 18px;
+        margin-bottom: 12px;
+    }
+
+    .beneficio p {
+        color: #6c757d;
+        margin-bottom: 0;
+    }
+
+
+    /* =====================================================
+       SECCIÓN FINAL
+       ===================================================== */
+
+    .seccion-final {
+        padding: 70px 0;
+        background-color: #f8faff;
+    }
+
+    .final-contenido {
+        background: linear-gradient(135deg, #0d6efd, #084298);
+        border-radius: 25px;
+        padding: 55px 30px;
+        text-align: center;
+        color: white;
+        box-shadow: 0 15px 35px rgba(13, 110, 253, 0.20);
+    }
+
+    .final-contenido i {
+        font-size: 3rem;
+    }
+
+    .final-contenido h2 {
+        font-weight: 700;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .final-contenido p {
+        font-size: 1.15rem;
+        margin-bottom: 25px;
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
+
+    @media (max-width: 991px) {
+
+        .quienes-texto {
+            padding-right: 0;
+            margin-bottom: 40px;
+        }
+
+        .destinos-collage {
+            height: 430px;
+        }
+    }
+
+    @media (max-width: 768px) {
+
+        .sobre-encabezado h1 {
+            font-size: 2.1rem;
+        }
+
+        .quienes-texto h2 {
+            font-size: 2rem;
+        }
+
+        .destinos-collage {
+            flex-direction: column;
+            height: auto;
+        }
+
+        .destino-collage {
+            min-height: 280px;
+        }
+
+        .destino-collage:not(:last-child) {
+            border-right: none;
+            border-bottom: 4px solid white;
+        }
+
+        .destino-collage:hover {
+            flex: 1;
+        }
+
+        .tarjeta-destino img {
+            height: 220px;
+        }
+    }
+
+</style>
+
+
+<div class="sobre-nosotros">
+
+    <!-- =================================================
+         ENCABEZADO
+         ================================================= -->
+
+    <section class="sobre-encabezado">
+
+        <div class="container">
+
+            <span class="sobre-etiqueta">
+                ✈️ Conoce Roma Travel
+            </span>
+
+            <h1>
+                Tu próximo destino comienza aquí
+            </h1>
+
+            <p>
+                En Roma Travel queremos ayudarte a descubrir nuevos lugares,
+                vivir nuevas experiencias y crear recuerdos inolvidables.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         QUIÉNES SOMOS + 3 IMÁGENES
+         ================================================= -->
+
+    <section class="quienes-somos">
+
+        <div class="container">
+
+            <div class="row align-items-center g-5">
+
+                <!-- TEXTO -->
+                <div class="col-lg-5">
+
+                    <div class="quienes-texto">
+
+                        <h2>
+                            ¿Quiénes somos?
+                        </h2>
+
+                        <p class="texto-principal">
+                            Roma Travel es una agencia de viajes orientada a
+                            ofrecer alternativas para quienes desean conocer
+                            destinos nacionales e internacionales de una
+                            manera simple y organizada.
+                        </p>
+
+                        <p class="texto-secundario">
+                            Nuestra plataforma permite consultar viajes
+                            disponibles, revisar sus fechas, precios y cupos,
+                            y realizar una reserva de manera rápida y sencilla.
+                        </p>
+
+                        <a href="{% url 'viajes_disponibles' %}"
+                           class="btn btn-explorar">
+
+                            <i class="bi bi-airplane me-2"></i>
+                            Explorar viajes
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- COLLAGE DE IMÁGENES -->
+                <div class="col-lg-7">
+
+                    <div class="destinos-collage">
+
+                        <!-- RÍO DE JANEIRO -->
+                        <div class="destino-collage">
+
+                            <img
+                                src="{% static 'agencia/img/rio-janeiro.jpg' %}"
+                                alt="Río de Janeiro">
+
+                            <div class="destino-info">
+
+                                <h4>
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    Río de Janeiro
+                                </h4>
+
+                                <p>
+                                    Playas, paisajes y cultura única.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ROMA -->
+                        <div class="destino-collage">
+
+                            <img
+                                src="{% static 'agencia/img/roma.jpg' %}"
+                                alt="Roma">
+
+                            <div class="destino-info">
+
+                                <h4>
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    Roma
+                                </h4>
+
+                                <p>
+                                    Historia, arquitectura y tradición.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- CANCÚN -->
+                        <div class="destino-collage">
+
+                            <img
+                                src="{% static 'agencia/img/cancun.jpg' %}"
+                                alt="Cancún">
+
+                            <div class="destino-info">
+
+                                <h4>
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    Cancún
+                                </h4>
+
+                                <p>
+                                    Playas de arena blanca y aguas turquesas.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
 
         </div>
 
-    </div>
-
-</section>
+    </section>
 
 
-<!-- =====================================
-     QUIÉNES SOMOS
-===================================== -->
+    <!-- =================================================
+         DESTINOS DESTACADOS
+         ================================================= -->
 
-<section class="container py-5">
+    <section class="seccion-destinos">
 
-    <div class="row align-items-center g-5">
+        <div class="container">
 
-        <!-- BLOQUE VISUAL -->
+            <div class="titulo-seccion">
 
-        <div class="col-lg-5">
-
-            <div
-                class="card border-0 p-5 text-center"
-                style="
-                    background:
-                    linear-gradient(
-                        145deg,
-                        #eaf3ff,
-                        #ffffff
-                    );
-                "
-            >
-
-                <div
-                    class="mx-auto mb-4 d-flex align-items-center justify-content-center"
-                    style="
-                        width: 110px;
-                        height: 110px;
-                        border-radius: 50%;
-                        background: #0d6efd;
-                        color: white;
-                        font-size: 50px;
-                    "
-                >
-                    <i class="bi bi-airplane"></i>
+                <div class="subtitulo">
+                    DESTINOS DESTACADOS
                 </div>
 
-                <h2 class="fw-bold">
-                    Roma Travel
+                <h2>
+                    Elige tu próxima aventura
                 </h2>
 
-                <p class="text-muted mb-0">
-                    Tu próximo destino comienza aquí.
+                <p>
+                    Descubre algunos de los destinos disponibles en Roma Travel.
                 </p>
 
             </div>
 
-        </div>
 
+            <div class="row g-4">
 
-        <!-- INFORMACIÓN -->
+                <!-- RÍO DE JANEIRO -->
+                <div class="col-md-4">
 
-        <div class="col-lg-7">
+                    <div class="card tarjeta-destino">
 
-            <span
-                class="text-primary fw-bold"
-            >
-                SOBRE NOSOTROS
-            </span>
+                        <img
+                            src="{% static 'agencia/img/rio-janeiro.jpg' %}"
+                            alt="Río de Janeiro">
 
-            <h2
-                class="fw-bold mt-2 mb-4"
-                style="color: #073763;"
-            >
-                Una forma sencilla de comenzar
-                tu próxima aventura
-            </h2>
+                        <div class="card-body">
 
-            <p class="text-muted fs-5">
-                Roma Travel es una agencia de viajes
-                orientada a facilitar la búsqueda,
-                selección y reserva de diferentes
-                destinos nacionales e internacionales.
-            </p>
+                            <span class="badge bg-success-subtle text-success">
+                                🇧🇷 Brasil
+                            </span>
 
-            <p class="text-muted">
-                A través de nuestra plataforma puedes
-                conocer los viajes disponibles,
-                consultar sus fechas, precios y cupos,
-                para luego realizar tu reserva de
-                manera rápida y organizada.
-            </p>
+                            <h3>
+                                Río de Janeiro
+                            </h3>
 
+                            <p>
+                                Disfruta de sus famosas playas, paisajes y
+                                lugares emblemáticos como el Cristo Redentor.
+                            </p>
 
-            <div class="row g-3 mt-3">
+                            <div class="text-primary fw-semibold">
 
-                <div class="col-sm-6">
+                                <i class="bi bi-geo-alt-fill me-1"></i>
+                                Brasil
 
-                    <div
-                        class="d-flex align-items-center"
-                    >
-
-                        <div
-                            class="trip-icon me-3"
-                        >
-                            <i class="bi bi-check-lg"></i>
-                        </div>
-
-                        <div>
-                            <strong>
-                                Reserva sencilla
-                            </strong>
-
-                            <div class="text-muted small">
-                                En pocos pasos
                             </div>
+
                         </div>
 
                     </div>
@@ -202,26 +648,76 @@ Sobre nosotros | Roma Travel
                 </div>
 
 
-                <div class="col-sm-6">
+                <!-- ROMA -->
+                <div class="col-md-4">
 
-                    <div
-                        class="d-flex align-items-center"
-                    >
+                    <div class="card tarjeta-destino">
 
-                        <div
-                            class="trip-icon me-3"
-                        >
-                            <i class="bi bi-globe"></i>
+                        <img
+                            src="{% static 'agencia/img/roma.jpg' %}"
+                            alt="Roma">
+
+                        <div class="card-body">
+
+                            <span class="badge bg-warning-subtle text-warning-emphasis">
+                                🇮🇹 Italia
+                            </span>
+
+                            <h3>
+                                Roma
+                            </h3>
+
+                            <p>
+                                Descubre una ciudad llena de historia,
+                                arquitectura y cultura, con lugares
+                                emblemáticos como el Coliseo.
+                            </p>
+
+                            <div class="text-primary fw-semibold">
+
+                                <i class="bi bi-geo-alt-fill me-1"></i>
+                                Italia
+
+                            </div>
+
                         </div>
 
-                        <div>
-                            <strong>
-                                Nuevos destinos
-                            </strong>
+                    </div>
 
-                            <div class="text-muted small">
-                                Nacionales e internacionales
+                </div>
+
+
+                <!-- CANCÚN -->
+                <div class="col-md-4">
+
+                    <div class="card tarjeta-destino">
+
+                        <img
+                            src="{% static 'agencia/img/cancun.jpg' %}"
+                            alt="Cancún">
+
+                        <div class="card-body">
+
+                            <span class="badge bg-info-subtle text-info-emphasis">
+                                🇲🇽 México
+                            </span>
+
+                            <h3>
+                                Cancún
+                            </h3>
+
+                            <p>
+                                Relájate junto al mar Caribe y disfruta de sus
+                                playas de arena blanca y aguas turquesas.
+                            </p>
+
+                            <div class="text-primary fw-semibold">
+
+                                <i class="bi bi-geo-alt-fill me-1"></i>
+                                México
+
                             </div>
+
                         </div>
 
                     </div>
@@ -232,118 +728,77 @@ Sobre nosotros | Roma Travel
 
         </div>
 
-    </div>
-
-</section>
+    </section>
 
 
-<!-- =====================================
-     MISIÓN Y VISIÓN
-===================================== -->
+    <!-- =================================================
+         MISIÓN Y VISIÓN
+         ================================================= -->
 
-<section
-    class="py-5"
-    style="background-color: #eef5fc;"
->
+    <section class="mision-vision">
 
-    <div class="container py-3">
+        <div class="container">
 
-        <div class="text-center mb-5">
+            <div class="titulo-seccion">
 
-            <span
-                class="text-primary fw-bold"
-            >
-                NUESTRO PROPÓSITO
-            </span>
+                <div class="subtitulo">
+                    ROMA TRAVEL
+                </div>
 
-            <h2
-                class="fw-bold mt-2"
-                style="color: #073763;"
-            >
-                Viajar comienza con una buena experiencia
-            </h2>
+                <h2>
+                    Nuestra misión y visión
+                </h2>
 
-            <p class="text-muted">
-                Trabajamos para que encontrar y reservar
-                un viaje sea un proceso simple.
-            </p>
-
-        </div>
+            </div>
 
 
-        <div class="row g-4">
+            <div class="row g-4">
 
-            <!-- MISIÓN -->
+                <!-- MISIÓN -->
+                <div class="col-md-6">
 
-            <div class="col-md-6">
+                    <div class="tarjeta-info">
 
-                <div
-                    class="card h-100 border-0 p-4"
-                >
+                        <div class="icono-info">
 
-                    <div class="card-body">
-
-                        <div
-                            class="trip-icon mb-4"
-                        >
                             <i class="bi bi-bullseye"></i>
+
                         </div>
 
-                        <h3
-                            class="fw-bold"
-                            style="color: #073763;"
-                        >
+                        <h3>
                             Nuestra misión
                         </h3>
 
-                        <p class="text-muted mb-0">
-                            Facilitar el acceso a
-                            experiencias de viaje mediante
-                            una plataforma clara, organizada
-                            y fácil de utilizar, permitiendo
-                            que nuestros clientes encuentren
-                            y reserven el destino ideal para
-                            sus próximas vacaciones.
+                        <p>
+                            Facilitar la planificación y reserva de viajes
+                            mediante una plataforma sencilla, clara y
+                            accesible para nuestros clientes.
                         </p>
 
                     </div>
 
                 </div>
 
-            </div>
 
+                <!-- VISIÓN -->
+                <div class="col-md-6">
 
-            <!-- VISIÓN -->
+                    <div class="tarjeta-info">
 
-            <div class="col-md-6">
+                        <div class="icono-info">
 
-                <div
-                    class="card h-100 border-0 p-4"
-                >
-
-                    <div class="card-body">
-
-                        <div
-                            class="trip-icon mb-4"
-                        >
                             <i class="bi bi-eye"></i>
+
                         </div>
 
-                        <h3
-                            class="fw-bold"
-                            style="color: #073763;"
-                        >
+                        <h3>
                             Nuestra visión
                         </h3>
 
-                        <p class="text-muted mb-0">
-                            Ser una alternativa cercana
-                            y confiable para las personas
-                            que desean conocer nuevos
-                            destinos, ofreciendo una
-                            experiencia sencilla desde
-                            la búsqueda del viaje hasta
-                            la realización de la reserva.
+                        <p>
+                            Convertirnos en una alternativa confiable para
+                            personas que buscan descubrir nuevos destinos
+                            y organizar sus próximas aventuras.
                         </p>
 
                     </div>
@@ -354,198 +809,140 @@ Sobre nosotros | Roma Travel
 
         </div>
 
-    </div>
-
-</section>
+    </section>
 
 
-<!-- =====================================
-     POR QUÉ ELEGIRNOS
-===================================== -->
+    <!-- =================================================
+         POR QUÉ ELEGIRNOS
+         ================================================= -->
 
-<section class="container py-5">
+    <section class="por-que-elegirnos">
 
-    <div class="text-center mb-5">
+        <div class="container">
 
-        <span
-            class="text-primary fw-bold"
-        >
-            ROMA TRAVEL
-        </span>
+            <div class="titulo-seccion">
 
-        <h2
-            class="fw-bold mt-2"
-            style="color: #073763;"
-        >
-            ¿Por qué viajar con nosotros?
-        </h2>
-
-        <p class="text-muted">
-            Queremos que organizar tu próxima
-            aventura sea fácil y agradable.
-        </p>
-
-    </div>
-
-
-    <div class="row g-4">
-
-
-        <!-- DESTINOS -->
-
-        <div class="col-md-4">
-
-            <div
-                class="card h-100 text-center border-0 p-4"
-            >
-
-                <div
-                    class="trip-icon mx-auto mb-3"
-                >
-                    <i class="bi bi-geo-alt"></i>
+                <div class="subtitulo">
+                    VIAJA CON NOSOTROS
                 </div>
 
-                <h4 class="fw-bold">
-                    Variedad de destinos
-                </h4>
-
-                <p class="text-muted">
-                    Encuentra diferentes alternativas
-                    de viajes y descubre lugares para
-                    tus próximas vacaciones.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- INFORMACIÓN -->
-
-        <div class="col-md-4">
-
-            <div
-                class="card h-100 text-center border-0 p-4"
-            >
-
-                <div
-                    class="trip-icon mx-auto mb-3"
-                >
-                    <i class="bi bi-info-circle"></i>
-                </div>
-
-                <h4 class="fw-bold">
-                    Información clara
-                </h4>
-
-                <p class="text-muted">
-                    Consulta fácilmente las fechas,
-                    precios, cupos y características
-                    de cada viaje disponible.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- RESERVAS -->
-
-        <div class="col-md-4">
-
-            <div
-                class="card h-100 text-center border-0 p-4"
-            >
-
-                <div
-                    class="trip-icon mx-auto mb-3"
-                >
-                    <i class="bi bi-calendar-check"></i>
-                </div>
-
-                <h4 class="fw-bold">
-                    Reservas simples
-                </h4>
-
-                <p class="text-muted">
-                    Selecciona el destino que prefieras
-                    y completa tu reserva directamente
-                    desde nuestra plataforma.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================
-     DESTINOS
-===================================== -->
-
-<section
-    class="py-5"
-    style="
-        background:
-        linear-gradient(
-            135deg,
-            #073763,
-            #0d6efd
-        );
-    "
->
-
-    <div class="container">
-
-        <div
-            class="row align-items-center"
-        >
-
-            <div class="col-lg-8">
-
-                <h2
-                    class="text-white fw-bold"
-                >
-                    Tu próxima aventura está
-                    a un clic de distancia
+                <h2>
+                    ¿Por que elegir Roma Travel?
                 </h2>
 
-                <p
-                    class="mb-lg-0"
-                    style="
-                        color:
-                        rgba(255,255,255,0.80);
-                    "
-                >
-                    Descubre nuestros viajes disponibles
-                    y encuentra el destino perfecto
-                    para ti.
+                <p>
+                    Queremos que reservar tu proximo viaje sea una
+                    experiencia sencilla.
                 </p>
 
             </div>
 
 
-            <div
-                class="col-lg-4 text-lg-end mt-3 mt-lg-0"
-            >
+            <div class="row g-4">
 
-                <a
-                    href="{% url 'viajes_disponibles' %}"
-                    class="btn btn-warning btn-lg"
-                >
-                    <i class="bi bi-airplane me-2"></i>
-                    Ver destinos
+                <!-- BENEFICIO 1 -->
+                <div class="col-md-4">
+
+                    <div class="beneficio">
+
+                        <i class="bi bi-airplane-fill"></i>
+
+                        <h4>
+                            Grandes destinos
+                        </h4>
+
+                        <p>
+                            Alternativas para conocer lugares increibles
+                            dentro y fuera de Chile.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BENEFICIO 2 -->
+                <div class="col-md-4">
+
+                    <div class="beneficio">
+
+                        <i class="bi bi-calendar-check-fill"></i>
+
+                        <h4>
+                            Reserva sencilla
+                        </h4>
+
+                        <p>
+                            Consulta los viajes disponibles y realiza tu
+                            reserva de forma rápida.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BENEFICIO 3 -->
+                <div class="col-md-4">
+
+                    <div class="beneficio">
+
+                        <i class="bi bi-shield-check"></i>
+
+                        <h4>
+                            Información clara
+                        </h4>
+
+                        <p>
+                            Revisa fechas, precios y cupos disponibles
+                            antes de realizar tu reserva.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         LLAMADO FINAL
+         ================================================= -->
+
+    <section class="seccion-final">
+
+        <div class="container">
+
+            <div class="final-contenido">
+
+                <i class="bi bi-airplane"></i>
+
+                <h2>
+                    Tu próxima aventura está a un clic
+                </h2>
+
+                <p>
+                    Explora nuestros destinos y encuentra el viaje ideal para ti.
+                </p>
+
+                <a href="{% url 'viajes_disponibles' %}"
+                   class="btn btn-light btn-lg text-primary fw-bold px-4">
+
+                    <i class="bi bi-search me-2"></i>
+                    Ver viajes disponibles
+
                 </a>
 
             </div>
 
         </div>
 
-    </div>
+    </section>
 
-</section>
+</div>
 
 {% endblock %}
