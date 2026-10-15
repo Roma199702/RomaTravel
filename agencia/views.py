@@ -1,3 +1,4 @@
+
 from django.shortcuts import (
     render,
     redirect,
@@ -5,6 +6,10 @@ from django.shortcuts import (
 )
 
 from django.db import transaction
+
+from django.contrib.admin.views.decorators import (
+    staff_member_required
+)
 
 from .models import Viaje, Reserva
 
@@ -61,7 +66,7 @@ def viajes_disponibles(request):
 
 
 # ==================================================
-# CREAR RESERVA
+# CREAR RESERVA (PÚBLICO)
 # ==================================================
 
 def reservar_viaje(request, id):
@@ -139,9 +144,10 @@ def reservar_viaje(request, id):
 
 
 # ==================================================
-# LISTAR RESERVAS
+# LISTAR RESERVAS (ADMINISTRADOR)
 # ==================================================
 
+@staff_member_required(login_url='login')
 def lista_reservas(request):
 
     reservas = Reserva.objects.select_related(
@@ -160,9 +166,10 @@ def lista_reservas(request):
 
 
 # ==================================================
-# EDITAR RESERVA
+# EDITAR RESERVA (ADMINISTRADOR)
 # ==================================================
 
+@staff_member_required(login_url='login')
 def editar_reserva(request, id):
 
     reserva = get_object_or_404(
@@ -191,10 +198,6 @@ def editar_reserva(request, id):
                 ]
             )
 
-            # Cupos que realmente están disponibles,
-            # considerando los que ya pertenecían
-            # a esta reserva.
-
             cupos_disponibles = (
                 viaje.cupos
                 + cantidad_anterior
@@ -211,16 +214,10 @@ def editar_reserva(request, id):
 
                 with transaction.atomic():
 
-                    # Primero devolvemos los cupos
-                    # de la reserva anterior.
-
                     viaje.cupos = (
                         viaje.cupos
                         + cantidad_anterior
                     )
-
-                    # Después descontamos
-                    # la nueva cantidad.
 
                     viaje.cupos = (
                         viaje.cupos
@@ -263,9 +260,10 @@ def editar_reserva(request, id):
 
 
 # ==================================================
-# ELIMINAR RESERVA
+# ELIMINAR RESERVA (ADMINISTRADOR)
 # ==================================================
 
+@staff_member_required(login_url='login')
 def eliminar_reserva(request, id):
 
     reserva = get_object_or_404(
@@ -278,9 +276,6 @@ def eliminar_reserva(request, id):
         with transaction.atomic():
 
             viaje = reserva.viaje
-
-            # Al eliminar la reserva,
-            # devolvemos sus cupos.
 
             viaje.cupos = (
                 viaje.cupos
@@ -306,9 +301,10 @@ def eliminar_reserva(request, id):
 
 # ==================================================
 # CRUD PRINCIPAL: VIAJE
-# CONSULTAR
+# CONSULTAR (ADMINISTRADOR)
 # ==================================================
 
+@staff_member_required(login_url='login')
 def administrar_viajes(request):
 
     viajes = Viaje.objects.all().order_by(
@@ -326,9 +322,10 @@ def administrar_viajes(request):
 
 # ==================================================
 # CRUD PRINCIPAL: VIAJE
-# CREAR
+# CREAR (ADMINISTRADOR)
 # ==================================================
 
+@staff_member_required(login_url='login')
 def crear_viaje(request):
 
     if request.method == 'POST':
@@ -360,9 +357,10 @@ def crear_viaje(request):
 
 # ==================================================
 # CRUD PRINCIPAL: VIAJE
-# EDITAR
+# EDITAR (ADMINISTRADOR)
 # ==================================================
 
+@staff_member_required(login_url='login')
 def editar_viaje(request, id):
 
     viaje = get_object_or_404(
@@ -403,9 +401,10 @@ def editar_viaje(request, id):
 
 # ==================================================
 # CRUD PRINCIPAL: VIAJE
-# ELIMINAR
+# ELIMINAR (ADMINISTRADOR)
 # ==================================================
 
+@staff_member_required(login_url='login')
 def eliminar_viaje(request, id):
 
     viaje = get_object_or_404(
