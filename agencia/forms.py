@@ -1,3 +1,4 @@
+
 from django import forms
 from django.utils import timezone
 
@@ -177,6 +178,10 @@ class ViajeForm(forms.ModelForm):
             'fecha_regreso'
         ].widget.attrs['min'] = hoy
 
+    # ==============================================
+    # VALIDAR FECHA DE SALIDA
+    # ==============================================
+
     def clean_fecha_salida(self):
 
         fecha = self.cleaned_data.get(
@@ -190,6 +195,10 @@ class ViajeForm(forms.ModelForm):
             )
 
         return fecha
+
+    # ==============================================
+    # VALIDAR FECHA DE REGRESO
+    # ==============================================
 
     def clean_fecha_regreso(self):
 
@@ -205,6 +214,10 @@ class ViajeForm(forms.ModelForm):
 
         return fecha
 
+    # ==============================================
+    # VALIDAR QUE REGRESO SEA DESPUÉS DE SALIDA
+    # ==============================================
+
     def clean(self):
 
         datos = super().clean()
@@ -219,11 +232,17 @@ class ViajeForm(forms.ModelForm):
 
         if salida and regreso:
 
-            if regreso < salida:
+            # No permitir regresar antes
+            # ni el mismo día de salida
+
+            if regreso <= salida:
 
                 self.add_error(
                     'fecha_regreso',
-                    'La fecha de regreso no puede ser anterior a la fecha de salida.'
+                    'La fecha de regreso debe ser posterior '
+                    'a la fecha de salida. '
+                    'No se permiten viajes de ida y vuelta '
+                    'el mismo día.'
                 )
 
         return datos
